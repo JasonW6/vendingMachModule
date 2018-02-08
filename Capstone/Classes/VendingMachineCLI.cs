@@ -29,6 +29,7 @@ namespace Capstone.Classes
                 Console.WriteLine("(1) Feed Money");
                 Console.WriteLine("(2) Select Product");
                 Console.WriteLine("(3) Finish Transaction");
+                int choice2 = int.Parse(Console.ReadLine());
             }
         }
     }
