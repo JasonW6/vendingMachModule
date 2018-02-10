@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Capstone.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Capstone
 {
@@ -10,7 +12,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            
+            VendingMachineCLI vending = new VendingMachineCLI();
+            vending.Run();
         }
     }
 }

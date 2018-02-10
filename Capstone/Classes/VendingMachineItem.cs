@@ -10,11 +10,15 @@ namespace Capstone.Classes
     {
         public decimal Price { get; }
         public string ItemName { get; }
+        public int ItemStock { get; set; }
+
+
 
         public VendingMachineItem(string item, decimal price)
         {
             Price = price;
             ItemName = item;
+            
         }
 
         public abstract string Consume();

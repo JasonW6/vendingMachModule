@@ -11,27 +11,27 @@ namespace Capstone.Classes
         public int Nickels { get; }
         public int Dimes { get; }
         public int Quarters { get; }
-        public decimal Total
+        public string Total
         {
-            get { return Nickels + Dimes + Quarters; }
+            get { return $"{Nickels} nickels {Dimes} Dimes {Quarters} Quarters"; }
         }
 
-        public Change(decimal total)
+        public Change(decimal balance)
         {
-            while (total > .25M)
+            while (balance >= .25M)
             {
                 Quarters++;
-                total -= .25M;
+                balance -= .25M;
             }
-            while (total > .10M)
+            while (balance >= .10M)
             {
                 Dimes++;
-                total -= .10M;
+                balance -= .10M;
             }
-            while (total > .05M)
+            while (balance >= .05M)
             {
                 Nickels++;
-                total -= .05M;
+                balance -= .05M;
             }
         }
     }

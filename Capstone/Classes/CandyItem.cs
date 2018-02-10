@@ -12,6 +12,8 @@ namespace Capstone.Classes
         {
 
         }
+        
+
 
         public override string Consume()
         {

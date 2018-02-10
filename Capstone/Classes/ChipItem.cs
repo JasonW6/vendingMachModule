@@ -12,7 +12,7 @@ namespace Capstone.Classes
         {
             
         }
-
+        
         public override string Consume()
         {
             return "Crunch Crunch, Yum!";
