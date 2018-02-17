@@ -10,8 +10,9 @@ namespace Capstone.Classes
     public class VendingMachine
     {
         TransLogger logger = new TransLogger("log.txt");
-        VendingMachineFileReader vfr = new VendingMachineFileReader("vendingmachine.csv");
+
         public decimal Balance { get; private set; }
+
         public string[] Slots
         {
             get
@@ -25,20 +26,22 @@ namespace Capstone.Classes
 
         public void FeedMoney(int dollars)
         {
-            Balance += (decimal)dollars;
-            
+            Balance += dollars;
+
             logger.RecordDeposit(dollars, Balance);
         }
+
         public VendingMachineItem GetItemAtSlot(string slot)
         {
             VendingMachineItem itemSlot = Inventory[slot][0];
             return itemSlot;
         }
+
         public int GetQuantityRemaining(string slot)
         {
             return Inventory[slot][0].ItemStock;
-
         }
+
         public VendingMachineItem Purchase(string slot)
         {
             try
@@ -46,37 +49,40 @@ namespace Capstone.Classes
                 if (Balance < Inventory[slot][0].Price)
                 {
                     Console.WriteLine("insufficient balance");
-                    
-                      }
-                
-                if ( Inventory[slot][0].ItemStock < 1)
+                }
+
+                if (Inventory[slot][0].ItemStock < 1)
                 {
                     Console.WriteLine("Out of stock");
-                    
                 }
-                if((Balance > Inventory[slot][0].Price) && (Inventory[slot][0].ItemStock > 0))
-                {
-                    Balance -= Inventory[slot][0].Price;
-                    Inventory[slot][0].ItemStock -= 1;
-                }
-                
+
+                Balance -= Inventory[slot][0].Price;
+                Inventory[slot][0].ItemStock -= 1;
+
+                logger.RecordPurchase(slot, Inventory[slot][0].ItemName, Inventory[slot][0].Price, Balance);
+
+                return Inventory[slot][0];
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Invalid Entry");
-                Console.WriteLine(ex.Message + "\n");   
+                Console.WriteLine(ex.Message + "\n");
             }
-            logger.RecordPurchase(slot, Inventory[slot][0].ItemName,Inventory[slot][0].Price,Balance);
-            return null;
+
             
+            return null;
         }
+
         public Change ReturnChange()
         {
             Change change = new Change(Balance);
+
             Balance = 0;
             logger.RecordCompleteTransaction(Balance);
+
             return change;
         }
+
         public VendingMachine(Dictionary<string, List<VendingMachineItem>> startingInventory)
         {
             Inventory = startingInventory;

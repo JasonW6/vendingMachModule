@@ -12,8 +12,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            VendingMachineCLI vending = new VendingMachineCLI();
-            vending.Run();
+            VendingMachineCLI cli = new VendingMachineCLI();
+            cli.Run();
         }
     }
 }

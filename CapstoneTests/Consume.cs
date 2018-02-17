@@ -16,6 +16,7 @@ namespace CapstoneTests
 
             Assert.AreEqual("Crunch Crunch, Yum!", result);
         }
+
         [TestMethod]
         public void CheckIfConsumeReturnsString2()
         {

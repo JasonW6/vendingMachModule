@@ -13,30 +13,38 @@ namespace Capstone.Classes
 
         public TransLogger(string filepath)
         {
-            FilePath = filepath;
-            
+            FilePath = filepath;            
+        }
+
+        private void WriteMessageToFile(string message)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(FilePath, true))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+            catch(IOException ex)
+            {
+                Console.WriteLine("Error writing to file.");
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void RecordCompleteTransaction(decimal remainingBalance)
         {
-            using (StreamWriter sw = new StreamWriter(FilePath, true))
-            {
-                sw.WriteLine($"{DateTime.Now} GIVE CHANGE: {remainingBalance}");
-            }
+            WriteMessageToFile($"{DateTime.Now} GIVE CHANGE: {remainingBalance}");           
         }
+
         public void RecordDeposit(decimal amount, decimal finalBalance)
         {
-            using (StreamWriter sw = new StreamWriter(FilePath, true))
-            {
-                sw.WriteLine($"{DateTime.Now} FEED MONEY: {amount} {finalBalance}");
-            }
+            WriteMessageToFile($"{DateTime.Now} FEED MONEY: {amount} {finalBalance}");            
         }
+
         public void RecordPurchase(string slot, string product, decimal intialBal, decimal finalBal)
         {
-            using (StreamWriter sw = new StreamWriter(FilePath, true))
-            {
-                sw.WriteLine($"{DateTime.Now} {product} {slot} {intialBal} {finalBal}");
-            }
+            WriteMessageToFile($"{DateTime.Now} {product} {slot} {intialBal} {finalBal}");            
         }
 
     }
